@@ -28,8 +28,14 @@ export function Post({ post }){
     setNewCommentText('');
   }
 
-  function handleNewCommentChange(){
+  function handleNewCommentChange(event){
+    event.target.setCustomValidity('')
+
     setNewCommentText(event.target.value)
+  }
+
+  function handleCommentInvalid(event){
+    event.target.setCustomValidity('Esse campo é obrigatório')
   }
 
   return(
@@ -61,7 +67,13 @@ export function Post({ post }){
       <form className={styles.commentForm} name='comment' onSubmit={handleCreateNewComment}>
         <strong>Deixe seu feedback</strong>
 
-        <textarea placeholder='Deixe um comentário' onChange={handleNewCommentChange} value={newCommentText} />
+        <textarea 
+          placeholder='Deixe um comentário' 
+          onChange={handleNewCommentChange} 
+          value={newCommentText} 
+          required 
+          onInvalid={handleCommentInvalid}
+        />
 
         <footer>
           <button type='submit'>Publicar</button>
